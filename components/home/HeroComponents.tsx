@@ -6,7 +6,7 @@ import Autoplay from 'embla-carousel-autoplay'
 
 const slides = [
     {
-        title: 'Welcome to Baobab University.',
+        title: 'Welcome to NIIT.',
         desc: 'Fostering Education Excellence By Empowering Minds'
     },
     {
@@ -35,7 +35,7 @@ export default function HeroComponents() {
             <div ref={emblaRef} className='w-full overflow-hidden'>
                 <div className='flex w-full h-screen'>
                     {slides.map((slide, index) => (
-                        <div key={index} className='min-w-full flex-shrink-0 h-screen flex flex-col items-center justify-center px-6 text-center'>
+                        <div key={index} className='min-w-full shrink-0 h-screen flex flex-col items-center justify-center px-6 text-center'>
                             <h1 className='text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 max-w-4xl'>
                                 {slide.title}
                             </h1>

@@ -1,4 +1,3 @@
-// src/components/home/UpcomingEvents.tsx
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
 import type { UniversityEvent } from "@/types/event";
