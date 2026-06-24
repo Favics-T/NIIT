@@ -72,7 +72,7 @@ const MOCK_FACULTIES: Faculty[] = [
     shortName: "Engineering",
     description:
       "Pioneering world-class engineers through rigorous academics, practical labs, and industry partnerships.",
-    coverImage: "/images/faculty-placeholder.jpg",
+    coverImage: "/images/Class1.png",
     icon: "Cpu",
     programCount: 8,
     studentCount: 3200,
@@ -86,7 +86,7 @@ const MOCK_FACULTIES: Faculty[] = [
     shortName: "Computer Science",
     description:
       "Training the next generation of software engineers, data scientists, and cybersecurity experts.",
-    coverImage: "/images/faculty-placeholder.jpg",
+    coverImage: "/images/Class2.png",
     icon: "Monitor",
     programCount: 6,
     studentCount: 4100,
@@ -100,7 +100,7 @@ const MOCK_FACULTIES: Faculty[] = [
     shortName: "Business",
     description:
       "Developing entrepreneurial leaders equipped with global business acumen and ethical decision-making skills.",
-    coverImage: "/images/faculty-placeholder.jpg",
+    coverImage: "/images/Class1.png",
     icon: "Briefcase",
     programCount: 5,
     studentCount: 2800,
@@ -114,7 +114,7 @@ const MOCK_FACULTIES: Faculty[] = [
     shortName: "IT",
     description:
       "Bridging the digital divide through cutting-edge IT education, research and community-focused innovation.",
-    coverImage: "/images/faculty-placeholder.jpg",
+    coverImage: "/images/Class1.jpg",
     icon: "Globe",
     programCount: 4,
     studentCount: 2100,

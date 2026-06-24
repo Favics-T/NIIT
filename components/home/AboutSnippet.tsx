@@ -47,7 +47,7 @@ export function AboutSnippet() {
             {/* Building image placeholder */}
             <div className="relative overflow-hidden rounded-2xl">
               <img
-                src="/images/campus-building.jpg"
+                src="/images/NIIT.webp"
                 alt="NIIT campus building"
                 className="h-72 w-full object-cover lg:h-96"
               />

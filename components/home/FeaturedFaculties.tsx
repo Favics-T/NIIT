@@ -29,7 +29,7 @@ const faculties = [
     {
         id: 4,
         name: "Department of Humanities",
-        description: "Excellence in arts, literature, history, and cultural studies.",
+        dscription: "Excellence in arts, literature, history, and cultural studies.",
         icon: "📚",
         students: "1,200+",
         programs: "10+"
@@ -65,7 +65,7 @@ export default function FeaturedFaculties() {
                     {faculties.map((faculty) => (
                         <div 
                             key={faculty.id}
-                            className='bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-8 border border-green-100 hover:shadow-lg transition-shadow cursor-pointer'
+                            className='bg-linear-to-br from-green-50 to-blue-50 rounded-lg p-8 border border-green-100 hover:shadow-lg transition-shadow cursor-pointer'
                         >
                             <div className='text-4xl mb-4'>{faculty.icon}</div>
                             <h3 className='text-xl font-bold text-gray-900 mb-3'>
