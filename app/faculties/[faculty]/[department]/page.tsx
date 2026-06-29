@@ -5,7 +5,6 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import {
   getAllDepartmentParams,
-  getCourse,
   getCoursesByDepartment,
   getDepartment,
   getFaculty,
@@ -74,4 +73,3 @@ export default async function DepartmentPage({ params }: Props) {
     </div>
   );
 }
-
