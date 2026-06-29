@@ -14,6 +14,9 @@ import type { NewsArticle } from "@/types/news";
 import type { Faculty } from "@/types/faculty";
 import type { UniversityEvent } from "@/types/event";
 import type { Leader } from "@/types/leader";
+import type { Course, Department } from "@/types/academic";
+import type { GalleryImage } from "@/types/gallery";
+import type { StaffMember } from "@/types/staff";
 
 // ---------------------------------------------------------------------------
 // Mock data (used when CONTENTFUL_SPACE_ID is not set)
@@ -211,6 +214,258 @@ const MOCK_LEADERS: Leader[] = [
   },
 ];
 
+const MOCK_DEPARTMENTS: Department[] = [
+  {
+    id: "dept-1",
+    slug: "mechanical-engineering",
+    facultySlug: "engineering",
+    name: "Department of Mechanical Engineering",
+    overview:
+      "Designing engineers with strong foundations in mechanics, materials, manufacturing, and sustainable systems.",
+    head: "Dr. Ibrahim Salako",
+    courseSlugs: ["mechanical-engineering", "mechatronics-engineering"],
+  },
+  {
+    id: "dept-2",
+    slug: "electrical-engineering",
+    facultySlug: "engineering",
+    name: "Department of Electrical Engineering",
+    overview:
+      "Preparing students for power systems, electronics, embedded systems, and industrial automation.",
+    head: "Dr. Ada Nwosu",
+    courseSlugs: ["electrical-engineering", "renewable-energy-systems"],
+  },
+  {
+    id: "dept-3",
+    slug: "software-systems",
+    facultySlug: "computer-science",
+    name: "Department of Software Systems",
+    overview:
+      "A project-led department focused on software engineering, web platforms, cloud systems, and product delivery.",
+    head: "Dr. Tunde Hassan",
+    courseSlugs: ["computer-science", "software-engineering"],
+  },
+  {
+    id: "dept-4",
+    slug: "data-cybersecurity",
+    facultySlug: "computer-science",
+    name: "Department of Data and Cybersecurity",
+    overview:
+      "Training analysts and security professionals in data science, machine learning, digital forensics, and secure systems.",
+    head: "Dr. Miriam Okafor",
+    courseSlugs: ["data-science", "cybersecurity"],
+  },
+  {
+    id: "dept-5",
+    slug: "management-studies",
+    facultySlug: "business-administration",
+    name: "Department of Management Studies",
+    overview:
+      "Developing business leaders through applied management, accounting, marketing, and entrepreneurship.",
+    head: "Dr. Segun Alabi",
+    courseSlugs: ["business-administration", "accounting", "marketing"],
+  },
+  {
+    id: "dept-6",
+    slug: "network-digital-systems",
+    facultySlug: "information-technology",
+    name: "Department of Network and Digital Systems",
+    overview:
+      "Focused on network engineering, IT operations, software platforms, and enterprise digital infrastructure.",
+    head: "Mrs. Laila Abdullahi",
+    courseSlugs: ["information-technology", "network-engineering"],
+  },
+];
+
+const MOCK_COURSES: Course[] = [
+  {
+    id: "course-1",
+    slug: "mechanical-engineering",
+    departmentSlug: "mechanical-engineering",
+    facultySlug: "engineering",
+    title: "B.Eng. Mechanical Engineering",
+    summary:
+      "A broad engineering programme covering thermodynamics, machine design, manufacturing, and energy systems.",
+    duration: "5 years",
+    degree: "Bachelor of Engineering",
+    requirements: ["Mathematics", "English Language", "Physics", "Chemistry"],
+    careerPaths: ["Mechanical Engineer", "Manufacturing Engineer", "Energy Systems Analyst"],
+  },
+  {
+    id: "course-2",
+    slug: "electrical-engineering",
+    departmentSlug: "electrical-engineering",
+    facultySlug: "engineering",
+    title: "B.Eng. Electrical Engineering",
+    summary:
+      "Power, electronics, control systems, and embedded engineering for industrial and infrastructure careers.",
+    duration: "5 years",
+    degree: "Bachelor of Engineering",
+    requirements: ["Mathematics", "English Language", "Physics", "Further Mathematics"],
+    careerPaths: ["Power Engineer", "Electronics Engineer", "Automation Specialist"],
+  },
+  {
+    id: "course-3",
+    slug: "computer-science",
+    departmentSlug: "software-systems",
+    facultySlug: "computer-science",
+    title: "BSc Computer Science",
+    summary:
+      "Computer systems, algorithms, databases, distributed applications, and software product development.",
+    duration: "4 years",
+    degree: "Bachelor of Science",
+    requirements: ["Mathematics", "English Language", "Physics", "Computer Studies"],
+    careerPaths: ["Software Developer", "Systems Analyst", "Cloud Engineer"],
+  },
+  {
+    id: "course-4",
+    slug: "cybersecurity",
+    departmentSlug: "data-cybersecurity",
+    facultySlug: "computer-science",
+    title: "BSc Cybersecurity",
+    summary:
+      "Secure systems, network defence, digital forensics, ethical hacking, and risk management.",
+    duration: "4 years",
+    degree: "Bachelor of Science",
+    requirements: ["Mathematics", "English Language", "Physics", "Computer Studies"],
+    careerPaths: ["Security Analyst", "Digital Forensics Officer", "Network Security Engineer"],
+  },
+  {
+    id: "course-5",
+    slug: "business-administration",
+    departmentSlug: "management-studies",
+    facultySlug: "business-administration",
+    title: "BSc Business Administration",
+    summary:
+      "Management, operations, entrepreneurship, finance, and leadership for modern organisations.",
+    duration: "4 years",
+    degree: "Bachelor of Science",
+    requirements: ["Mathematics", "English Language", "Economics", "Commerce"],
+    careerPaths: ["Business Analyst", "Operations Manager", "Entrepreneur"],
+  },
+  {
+    id: "course-6",
+    slug: "information-technology",
+    departmentSlug: "network-digital-systems",
+    facultySlug: "information-technology",
+    title: "BSc Information Technology",
+    summary:
+      "Enterprise systems, networking, software tools, IT service delivery, and digital transformation.",
+    duration: "4 years",
+    degree: "Bachelor of Science",
+    requirements: ["Mathematics", "English Language", "Physics", "Computer Studies"],
+    careerPaths: ["IT Consultant", "Systems Administrator", "Digital Transformation Analyst"],
+  },
+];
+
+const MOCK_STAFF: StaffMember[] = [
+  {
+    id: "staff-1",
+    name: "Dr. Ibrahim Salako",
+    title: "Senior Lecturer, Mechanical Systems",
+    facultySlug: "engineering",
+    departmentSlug: "mechanical-engineering",
+    email: "i.salako@niit.edu.ng",
+    expertise: ["Machine Design", "Manufacturing", "Materials"],
+    profileImage: "/images/NIIT.webp",
+  },
+  {
+    id: "staff-2",
+    name: "Dr. Ada Nwosu",
+    title: "Lecturer, Power Systems",
+    facultySlug: "engineering",
+    departmentSlug: "electrical-engineering",
+    email: "a.nwosu@niit.edu.ng",
+    expertise: ["Power Systems", "Control", "Electronics"],
+    profileImage: "/images/Class1.png",
+  },
+  {
+    id: "staff-3",
+    name: "Dr. Tunde Hassan",
+    title: "Senior Lecturer, Software Engineering",
+    facultySlug: "computer-science",
+    departmentSlug: "software-systems",
+    email: "t.hassan@niit.edu.ng",
+    expertise: ["Web Platforms", "Cloud", "Software Architecture"],
+    profileImage: "/images/Class2.png",
+  },
+  {
+    id: "staff-4",
+    name: "Dr. Miriam Okafor",
+    title: "Lecturer, Cybersecurity",
+    facultySlug: "computer-science",
+    departmentSlug: "data-cybersecurity",
+    email: "m.okafor@niit.edu.ng",
+    expertise: ["Security Operations", "Forensics", "Data Science"],
+    profileImage: "/images/NIIT.webp",
+  },
+  {
+    id: "staff-5",
+    name: "Dr. Segun Alabi",
+    title: "Lecturer, Management Studies",
+    facultySlug: "business-administration",
+    departmentSlug: "management-studies",
+    email: "s.alabi@niit.edu.ng",
+    expertise: ["Strategy", "Accounting", "Entrepreneurship"],
+    profileImage: "/images/Class1.png",
+  },
+  {
+    id: "staff-6",
+    name: "Mrs. Laila Abdullahi",
+    title: "Lecturer, Network Engineering",
+    facultySlug: "information-technology",
+    departmentSlug: "network-digital-systems",
+    email: "l.abdullahi@niit.edu.ng",
+    expertise: ["Networks", "IT Operations", "Infrastructure"],
+    profileImage: "/images/Class2.png",
+  },
+];
+
+const MOCK_GALLERY: GalleryImage[] = [
+  {
+    id: "gallery-1",
+    title: "Main learning block",
+    category: "Campus",
+    image: "/images/NIIT.webp",
+    alt: "NIIT campus learning block",
+  },
+  {
+    id: "gallery-2",
+    title: "Technology classroom",
+    category: "Labs",
+    image: "/images/Class1.png",
+    alt: "Students in a technology classroom",
+  },
+  {
+    id: "gallery-3",
+    title: "Collaborative lab session",
+    category: "Labs",
+    image: "/images/Class2.png",
+    alt: "Students collaborating in a lab session",
+  },
+  {
+    id: "gallery-4",
+    title: "Student presentation",
+    category: "Student Life",
+    image: "/images/MD.png",
+    alt: "Student presentation on campus",
+  },
+  {
+    id: "gallery-5",
+    title: "Open day experience",
+    category: "Events",
+    image: "/images/NIIT.webp",
+    alt: "Open day guests at NIIT",
+  },
+  {
+    id: "gallery-6",
+    title: "Seminar and workshop",
+    category: "Events",
+    image: "/images/Class1.png",
+    alt: "Academic seminar and workshop",
+  },
+];
+
 // ---------------------------------------------------------------------------
 // Data fetching functions (Contentful or mock fallback)
 // ---------------------------------------------------------------------------
@@ -273,11 +528,75 @@ export async function getAllFacultySlugs(): Promise<string[]> {
   return faculties.map((f) => f.slug);
 }
 
+export async function getDepartmentsByFaculty(facultySlug: string): Promise<Department[]> {
+  return MOCK_DEPARTMENTS.filter((department) => department.facultySlug === facultySlug);
+}
+
+export async function getAllDepartments(): Promise<Department[]> {
+  return MOCK_DEPARTMENTS;
+}
+
+export async function getDepartment(
+  facultySlug: string,
+  departmentSlug: string
+): Promise<Department | null> {
+  return (
+    MOCK_DEPARTMENTS.find(
+      (department) =>
+        department.facultySlug === facultySlug && department.slug === departmentSlug
+    ) ?? null
+  );
+}
+
+export async function getAllDepartmentParams(): Promise<
+  { faculty: string; department: string }[]
+> {
+  return MOCK_DEPARTMENTS.map((department) => ({
+    faculty: department.facultySlug,
+    department: department.slug,
+  }));
+}
+
+export async function getCoursesByDepartment(departmentSlug: string): Promise<Course[]> {
+  return MOCK_COURSES.filter((course) => course.departmentSlug === departmentSlug);
+}
+
+export async function getAllCourses(): Promise<Course[]> {
+  return MOCK_COURSES;
+}
+
+export async function getCourse(slug: string): Promise<Course | null> {
+  return MOCK_COURSES.find((course) => course.slug === slug) ?? null;
+}
+
+export async function getAllCourseSlugs(): Promise<string[]> {
+  return MOCK_COURSES.map((course) => course.slug);
+}
+
 export async function getUpcomingEvents(limit = 3): Promise<UniversityEvent[]> {
   if (await isContentfulConfigured()) {
     // Contentful query
   }
   return MOCK_EVENTS.slice(0, limit);
+}
+
+export async function getAllEvents(): Promise<UniversityEvent[]> {
+  return MOCK_EVENTS;
+}
+
+export async function getAllStaff(filters?: {
+  faculty?: string;
+  department?: string;
+}): Promise<StaffMember[]> {
+  return MOCK_STAFF.filter((staff) => {
+    if (filters?.faculty && staff.facultySlug !== filters.faculty) return false;
+    if (filters?.department && staff.departmentSlug !== filters.department) return false;
+    return true;
+  });
+}
+
+export async function getGalleryImages(): Promise<GalleryImage[]> {
+  return MOCK_GALLERY;
 }
 
 export async function getAllLeaders(): Promise<Leader[]> {
