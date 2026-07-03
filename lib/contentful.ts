@@ -502,12 +502,12 @@ export async function getLatestNews(limit = 3): Promise<NewsArticle[]> {
         category: item.fields.category ?? "",
         coverImage: item.fields.coverImage?.fields?.file?.url
           ? `https:${item.fields.coverImage.fields.file.url}`
-          : "",
+          : "/images/news-placeholder.jpg",
         author: item.fields.author ?? "",
         authorAvatar: item.fields.authorAvatar?.fields?.file?.url
           ? `https:${item.fields.authorAvatar.fields.file.url}`
-          : "",
-        publishedAt: item.fields.publishedAt ?? "",
+          : "/images/avatar-placeholder.jpg",
+        publishedAt: item.fields.publishedAt ?? new Date().toISOString(),
         tags: Array.isArray(item.fields.tags) ? item.fields.tags : [],
       }));
     } catch (error) {
@@ -535,12 +535,12 @@ export async function getAllNews(): Promise<NewsArticle[]> {
         category: item.fields.category ?? "",
         coverImage: item.fields.coverImage?.fields?.file?.url
           ? `https:${item.fields.coverImage.fields.file.url}`
-          : "",
+          : "/images/news-placeholder.jpg",
         author: item.fields.author ?? "",
         authorAvatar: item.fields.authorAvatar?.fields?.file?.url
           ? `https:${item.fields.authorAvatar.fields.file.url}`
-          : "",
-        publishedAt: item.fields.publishedAt ?? "",
+          : "/images/avatar-placeholder.jpg",
+        publishedAt: item.fields.publishedAt ?? new Date().toISOString(),
         tags: Array.isArray(item.fields.tags) ? item.fields.tags : [],
       }));
     } catch (error) {
@@ -571,12 +571,12 @@ export async function getNewsArticle(slug: string): Promise<NewsArticle | null> 
         category: item.fields.category ?? "",
         coverImage: item.fields.coverImage?.fields?.file?.url
           ? `https:${item.fields.coverImage.fields.file.url}`
-          : "",
+          : "/images/news-placeholder.jpg",
         author: item.fields.author ?? "",
         authorAvatar: item.fields.authorAvatar?.fields?.file?.url
           ? `https:${item.fields.authorAvatar.fields.file.url}`
-          : "",
-        publishedAt: item.fields.publishedAt ?? "",
+          : "/images/avatar-placeholder.jpg",
+        publishedAt: item.fields.publishedAt ?? new Date().toISOString(),
         tags: Array.isArray(item.fields.tags) ? item.fields.tags : [],
       };
     } catch (error) {
@@ -743,13 +743,55 @@ export async function getAllCourseSlugs(): Promise<string[]> {
 
 export async function getUpcomingEvents(limit = 3): Promise<UniversityEvent[]> {
   if (await isContentfulConfigured()) {
-    // Contentful query
+    try {
+      const entries = await contentfulClient.getEntries<any>({
+        content_type: "universityEvent",
+        limit,
+        order: "fields.startDate",
+      });
+
+      return entries.items.map(mapEventEntry);
+    } catch (error) {
+      console.error("Error fetching upcoming events from Contentful:", error);
+    }
   }
   return MOCK_EVENTS.slice(0, limit);
 }
 
 export async function getAllEvents(): Promise<UniversityEvent[]> {
+  if (await isContentfulConfigured()) {
+    try {
+      const entries = await contentfulClient.getEntries<any>({
+        content_type: "universityEvent",
+        limit: 1000,
+        order: "fields.startDate",
+      });
+
+      return entries.items.map(mapEventEntry);
+    } catch (error) {
+      console.error("Error fetching all events from Contentful:", error);
+    }
+  }
   return MOCK_EVENTS;
+}
+
+// Helper function to map Contentful event entry to UniversityEvent interface
+function mapEventEntry(item: any): UniversityEvent {
+  return {
+    id: item.sys.id,
+    slug: item.fields.slug ?? "",
+    title: item.fields.title ?? "",
+    description: item.fields.description ?? "",
+    coverImage: item.fields.coverImage?.fields?.file?.url
+      ? `https:${item.fields.coverImage.fields.file.url}`
+      : "",
+    location: item.fields.location ?? "",
+    startDate: item.fields.startDate ?? "",
+    endDate: item.fields.endDate ?? "",
+    category: item.fields.category ?? "",
+    isFeatured: item.fields.isFeatured ?? false,
+    registrationLink: item.fields.registrationLink ? item.fields.registrationLink : undefined,
+  };
 }
 
 export async function getAllStaff(filters?: {
