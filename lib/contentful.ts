@@ -21,7 +21,7 @@ import type { GalleryImage } from "@/types/gallery";
 import type { StaffMember } from "@/types/staff";
 
 
-const contentfulClient = createClient({
+export const contentfulClient = createClient({
   space: process.env.CONTENTFUL_SPACE_ID!,
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
 });
@@ -490,25 +490,27 @@ export async function getLatestNews(limit = 3): Promise<NewsArticle[]> {
       const entries = await contentfulClient.getEntries<any>({
         content_type: "newsArticle",
         limit,
-        order: "-fields.publishedAt",
+        order: ["-fields.publishedAt"],
       });
 
       return entries.items.map((item: any) => ({
         id: item.sys.id,
-        slug: item.fields.slug ?? "",
-        title: item.fields.title ?? "",
-        excerpt: item.fields.excerpt ?? "",
-        body: item.fields.body ? documentToHtmlString(item.fields.body) : "",
-        category: item.fields.category ?? "",
-        coverImage: item.fields.coverImage?.fields?.file?.url
-          ? `https:${item.fields.coverImage.fields.file.url}`
+        slug: (item.fields.slug as string) ?? "",
+        title: (item.fields.title as string) ?? "",
+        excerpt: (item.fields.excerpt as string) ?? "",
+        body: item.fields.body && typeof item.fields.body === "object" && "nodeType" in item.fields.body
+          ? documentToHtmlString(item.fields.body as any)
+          : "",
+        category: (item.fields.category as string) ?? "",
+        coverImage: (item.fields.coverImage as any)?.fields?.file?.url
+          ? `https:${(item.fields.coverImage as any).fields.file.url}`
           : "/images/news-placeholder.jpg",
-        author: item.fields.author ?? "",
-        authorAvatar: item.fields.authorAvatar?.fields?.file?.url
-          ? `https:${item.fields.authorAvatar.fields.file.url}`
+        author: (item.fields.author as string) ?? "",
+        authorAvatar: (item.fields.authorAvatar as any)?.fields?.file?.url
+          ? `https:${(item.fields.authorAvatar as any).fields.file.url}`
           : "/images/avatar-placeholder.jpg",
-        publishedAt: item.fields.publishedAt ?? new Date().toISOString(),
-        tags: Array.isArray(item.fields.tags) ? item.fields.tags : [],
+        publishedAt: (item.fields.publishedAt as string) ?? new Date().toISOString(),
+        tags: Array.isArray(item.fields.tags) ? (item.fields.tags as string[]) : [],
       }));
     } catch (error) {
       console.error("Error fetching latest news from Contentful:", error);
@@ -523,25 +525,27 @@ export async function getAllNews(): Promise<NewsArticle[]> {
       const entries = await contentfulClient.getEntries<any>({
         content_type: "newsArticle",
         limit: 1000,
-        order: "-fields.publishedAt",
+        order: ["-fields.publishedAt"],
       });
 
       return entries.items.map((item: any) => ({
         id: item.sys.id,
-        slug: item.fields.slug ?? "",
-        title: item.fields.title ?? "",
-        excerpt: item.fields.excerpt ?? "",
-        body: item.fields.body ? documentToHtmlString(item.fields.body) : "",
-        category: item.fields.category ?? "",
-        coverImage: item.fields.coverImage?.fields?.file?.url
-          ? `https:${item.fields.coverImage.fields.file.url}`
+        slug: (item.fields.slug as string) ?? "",
+        title: (item.fields.title as string) ?? "",
+        excerpt: (item.fields.excerpt as string) ?? "",
+        body: item.fields.body && typeof item.fields.body === "object" && "nodeType" in item.fields.body
+          ? documentToHtmlString(item.fields.body as any)
+          : "",
+        category: (item.fields.category as string) ?? "",
+        coverImage: (item.fields.coverImage as any)?.fields?.file?.url
+          ? `https:${(item.fields.coverImage as any).fields.file.url}`
           : "/images/news-placeholder.jpg",
-        author: item.fields.author ?? "",
-        authorAvatar: item.fields.authorAvatar?.fields?.file?.url
-          ? `https:${item.fields.authorAvatar.fields.file.url}`
+        author: (item.fields.author as string) ?? "",
+        authorAvatar: (item.fields.authorAvatar as any)?.fields?.file?.url
+          ? `https:${(item.fields.authorAvatar as any).fields.file.url}`
           : "/images/avatar-placeholder.jpg",
-        publishedAt: item.fields.publishedAt ?? new Date().toISOString(),
-        tags: Array.isArray(item.fields.tags) ? item.fields.tags : [],
+        publishedAt: (item.fields.publishedAt as string) ?? new Date().toISOString(),
+        tags: Array.isArray(item.fields.tags) ? (item.fields.tags as string[]) : [],
       }));
     } catch (error) {
       console.error("Error fetching all news from Contentful:", error);
@@ -564,20 +568,22 @@ export async function getNewsArticle(slug: string): Promise<NewsArticle | null> 
       const item = entries.items[0];
       return {
         id: item.sys.id,
-        slug: item.fields.slug ?? "",
-        title: item.fields.title ?? "",
-        excerpt: item.fields.excerpt ?? "",
-        body: item.fields.body ? documentToHtmlString(item.fields.body) : "",
-        category: item.fields.category ?? "",
-        coverImage: item.fields.coverImage?.fields?.file?.url
-          ? `https:${item.fields.coverImage.fields.file.url}`
+        slug: (item.fields.slug as string) ?? "",
+        title: (item.fields.title as string) ?? "",
+        excerpt: (item.fields.excerpt as string) ?? "",
+        body: item.fields.body && typeof item.fields.body === "object" && "nodeType" in item.fields.body
+          ? documentToHtmlString(item.fields.body as any)
+          : "",
+        category: (item.fields.category as string) ?? "",
+        coverImage: (item.fields.coverImage as any)?.fields?.file?.url
+          ? `https:${(item.fields.coverImage as any).fields.file.url}`
           : "/images/news-placeholder.jpg",
-        author: item.fields.author ?? "",
-        authorAvatar: item.fields.authorAvatar?.fields?.file?.url
-          ? `https:${item.fields.authorAvatar.fields.file.url}`
+        author: (item.fields.author as string) ?? "",
+        authorAvatar: (item.fields.authorAvatar as any)?.fields?.file?.url
+          ? `https:${(item.fields.authorAvatar as any).fields.file.url}`
           : "/images/avatar-placeholder.jpg",
-        publishedAt: item.fields.publishedAt ?? new Date().toISOString(),
-        tags: Array.isArray(item.fields.tags) ? item.fields.tags : [],
+        publishedAt: (item.fields.publishedAt as string) ?? new Date().toISOString(),
+        tags: Array.isArray(item.fields.tags) ? (item.fields.tags as string[]) : [],
       };
     } catch (error) {
       console.error("Error fetching news article from Contentful:", error);
@@ -605,8 +611,8 @@ export async function getFeaturedFaculties(): Promise<Faculty[]> {
         name: item.fields.name ?? "",
         shortName: item.fields.shortName ?? "",
         description: item.fields.description ?? "",
-        coverImage: item.fields.coverImage?.fields?.file?.url
-          ? `https:${item.fields.coverImage.fields.file.url}`
+        coverImage: (item.fields.coverImage as any)?.fields?.file?.url
+          ? `https:${(item.fields.coverImage as any).fields.file.url}`
           : "",
         icon: item.fields.icon ?? "",
         programCount: item.fields.programCount ?? 0,
@@ -637,8 +643,8 @@ export async function getAllFaculties(): Promise<Faculty[]> {
         name: item.fields.name ?? "",
         shortName: item.fields.shortName ?? "",
         description: item.fields.description ?? "",
-        coverImage: item.fields.coverImage?.fields?.file?.url
-          ? `https:${item.fields.coverImage.fields.file.url}`
+        coverImage: (item.fields.coverImage as any)?.fields?.file?.url
+          ? `https:${(item.fields.coverImage as any).fields.file.url}`
           : "",
         icon: item.fields.icon ?? "",
         programCount: item.fields.programCount ?? 0,
@@ -669,19 +675,19 @@ export async function getFaculty(slug: string): Promise<Faculty | null> {
       const item = entries.items[0];
       return {
         id: item.sys.id,
-        slug: item.fields.slug ?? "",
-        name: item.fields.name ?? "",
-        shortName: item.fields.shortName ?? "",
-        description: item.fields.description ?? "",
-        coverImage: item.fields.coverImage?.fields?.file?.url
-          ? `https:${item.fields.coverImage.fields.file.url}`
+        slug: (item.fields.slug as string) ?? "",
+        name: (item.fields.name as string) ?? "",
+        shortName: (item.fields.shortName as string) ?? "",
+        description: (item.fields.description as string) ?? "",
+        coverImage: (item.fields.coverImage as any)?.fields?.file?.url
+          ? `https:${(item.fields.coverImage as any).fields.file.url}`
           : "",
-        icon: item.fields.icon ?? "",
-        programCount: item.fields.programCount ?? 0,
-        studentCount: item.fields.studentCount ?? 0,
-        dean: item.fields.dean ?? "",
+        icon: (item.fields.icon as string) ?? "",
+        programCount: (item.fields.programCount as number) ?? 0,
+        studentCount: (item.fields.studentCount as number) ?? 0,
+        dean: (item.fields.dean as string) ?? "",
         featuredPrograms: Array.isArray(item.fields.featuredPrograms)
-          ? item.fields.featuredPrograms
+          ? (item.fields.featuredPrograms as string[])
           : [],
       };
     } catch (error) {
@@ -747,7 +753,7 @@ export async function getUpcomingEvents(limit = 3): Promise<UniversityEvent[]> {
       const entries = await contentfulClient.getEntries<any>({
         content_type: "universityEvent",
         limit,
-        order: "fields.startDate",
+        order: ["fields.startDate"],
       });
 
       return entries.items.map(mapEventEntry);
@@ -764,7 +770,7 @@ export async function getAllEvents(): Promise<UniversityEvent[]> {
       const entries = await contentfulClient.getEntries<any>({
         content_type: "universityEvent",
         limit: 1000,
-        order: "fields.startDate",
+        order: ["fields.startDate"],
       });
 
       return entries.items.map(mapEventEntry);
@@ -779,18 +785,18 @@ export async function getAllEvents(): Promise<UniversityEvent[]> {
 function mapEventEntry(item: any): UniversityEvent {
   return {
     id: item.sys.id,
-    slug: item.fields.slug ?? "",
-    title: item.fields.title ?? "",
-    description: item.fields.description ?? "",
-    coverImage: item.fields.coverImage?.fields?.file?.url
-      ? `https:${item.fields.coverImage.fields.file.url}`
+    slug: (item.fields.slug as string) ?? "",
+    title: (item.fields.title as string) ?? "",
+    description: (item.fields.description as string) ?? "",
+    coverImage: (item.fields.coverImage as any)?.fields?.file?.url
+      ? `https:${(item.fields.coverImage as any).fields.file.url}`
       : "",
-    location: item.fields.location ?? "",
-    startDate: item.fields.startDate ?? "",
-    endDate: item.fields.endDate ?? "",
-    category: item.fields.category ?? "",
-    isFeatured: item.fields.isFeatured ?? false,
-    registrationLink: item.fields.registrationLink ? item.fields.registrationLink : undefined,
+    location: (item.fields.location as string) ?? "",
+    startDate: (item.fields.startDate as string) ?? "",
+    endDate: (item.fields.endDate as string) ?? "",
+    category: (item.fields.category as string) ?? "",
+    isFeatured: (item.fields.isFeatured as boolean) ?? false,
+    registrationLink: item.fields.registrationLink ? (item.fields.registrationLink as string) : undefined,
   };
 }
 

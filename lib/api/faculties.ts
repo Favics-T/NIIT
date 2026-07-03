@@ -1,5 +1,5 @@
 // import { contentfulClient } from '@/lib/contenntful';
-import { contentfulClient } from '@/lib/conntentful';
+import { contentfulClient } from '@/lib/contentful';
 import type { Faculty } from '@/types/faculty';
 
 export async function getFaculties(): Promise<Faculty[]> {
@@ -8,12 +8,22 @@ export async function getFaculties(): Promise<Faculty[]> {
     order: ['fields.name'],
   });
 
-  return res.items.map((item) => ({
+  return res.items.map((item: any) => ({
     id: item.sys.id,
-    name: item.fields.name as string,
-    slug: item.fields.slug as string,
-    description: item.fields.description as string,
-    // map whatever other fields you have
+    slug: item.fields.slug ?? "",
+    name: item.fields.name ?? "",
+    shortName: item.fields.shortName ?? "",
+    description: item.fields.description ?? "",
+    coverImage: item.fields.coverImage?.fields?.file?.url
+      ? `https:${item.fields.coverImage.fields.file.url}`
+      : "",
+    icon: item.fields.icon ?? "",
+    programCount: item.fields.programCount ?? 0,
+    studentCount: item.fields.studentCount ?? 0,
+    dean: item.fields.dean ?? "",
+    featuredPrograms: Array.isArray(item.fields.featuredPrograms)
+      ? item.fields.featuredPrograms
+      : [],
   }));
 }
 
@@ -26,11 +36,22 @@ export async function getFacultyBySlug(slug: string): Promise<Faculty | null> {
 
   if (!res.items.length) return null;
 
-  const item = res.items[0];
+  const item = res.items[0] as any;
   return {
     id: item.sys.id,
-    name: item.fields.name as string,
-    slug: item.fields.slug as string,
-    description: item.fields.description as string,
+    slug: item.fields.slug ?? "",
+    name: item.fields.name ?? "",
+    shortName: item.fields.shortName ?? "",
+    description: item.fields.description ?? "",
+    coverImage: item.fields.coverImage?.fields?.file?.url
+      ? `https:${item.fields.coverImage.fields.file.url}`
+      : "",
+    icon: item.fields.icon ?? "",
+    programCount: item.fields.programCount ?? 0,
+    studentCount: item.fields.studentCount ?? 0,
+    dean: item.fields.dean ?? "",
+    featuredPrograms: Array.isArray(item.fields.featuredPrograms)
+      ? item.fields.featuredPrograms
+      : [],
   };
 }
