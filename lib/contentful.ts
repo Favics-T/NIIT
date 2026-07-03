@@ -11,6 +11,7 @@
  */
 
 import { createClient } from "contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import type { NewsArticle } from "@/types/news";
 import type { Faculty } from "@/types/faculty";
 import type { UniversityEvent } from "@/types/event";
@@ -19,9 +20,6 @@ import type { Course, Department } from "@/types/academic";
 import type { GalleryImage } from "@/types/gallery";
 import type { StaffMember } from "@/types/staff";
 
-// ---------------------------------------------------------------------------
-// Contentful Client
-// ---------------------------------------------------------------------------
 
 const contentfulClient = createClient({
   space: process.env.CONTENTFUL_SPACE_ID!,
@@ -488,24 +486,102 @@ async function isContentfulConfigured(): Promise<boolean> {
 
 export async function getLatestNews(limit = 3): Promise<NewsArticle[]> {
   if (await isContentfulConfigured()) {
-    // TODO: Replace with real Contentful query
-    // const client = createClient({ space: process.env.CONTENTFUL_SPACE_ID!, accessToken: process.env.CONTENTFUL_ACCESS_TOKEN! });
-    // const entries = await client.getEntries({ content_type: 'newsArticle', limit, order: '-fields.publishedAt' });
-    // return entries.items.map(mapEntry);
+    try {
+      const entries = await contentfulClient.getEntries<any>({
+        content_type: "newsArticle",
+        limit,
+        order: "-fields.publishedAt",
+      });
+
+      return entries.items.map((item: any) => ({
+        id: item.sys.id,
+        slug: item.fields.slug ?? "",
+        title: item.fields.title ?? "",
+        excerpt: item.fields.excerpt ?? "",
+        body: item.fields.body ? documentToHtmlString(item.fields.body) : "",
+        category: item.fields.category ?? "",
+        coverImage: item.fields.coverImage?.fields?.file?.url
+          ? `https:${item.fields.coverImage.fields.file.url}`
+          : "",
+        author: item.fields.author ?? "",
+        authorAvatar: item.fields.authorAvatar?.fields?.file?.url
+          ? `https:${item.fields.authorAvatar.fields.file.url}`
+          : "",
+        publishedAt: item.fields.publishedAt ?? "",
+        tags: Array.isArray(item.fields.tags) ? item.fields.tags : [],
+      }));
+    } catch (error) {
+      console.error("Error fetching latest news from Contentful:", error);
+    }
   }
   return MOCK_NEWS.slice(0, limit);
 }
 
 export async function getAllNews(): Promise<NewsArticle[]> {
   if (await isContentfulConfigured()) {
-    // Contentful query
+    try {
+      const entries = await contentfulClient.getEntries<any>({
+        content_type: "newsArticle",
+        limit: 1000,
+        order: "-fields.publishedAt",
+      });
+
+      return entries.items.map((item: any) => ({
+        id: item.sys.id,
+        slug: item.fields.slug ?? "",
+        title: item.fields.title ?? "",
+        excerpt: item.fields.excerpt ?? "",
+        body: item.fields.body ? documentToHtmlString(item.fields.body) : "",
+        category: item.fields.category ?? "",
+        coverImage: item.fields.coverImage?.fields?.file?.url
+          ? `https:${item.fields.coverImage.fields.file.url}`
+          : "",
+        author: item.fields.author ?? "",
+        authorAvatar: item.fields.authorAvatar?.fields?.file?.url
+          ? `https:${item.fields.authorAvatar.fields.file.url}`
+          : "",
+        publishedAt: item.fields.publishedAt ?? "",
+        tags: Array.isArray(item.fields.tags) ? item.fields.tags : [],
+      }));
+    } catch (error) {
+      console.error("Error fetching all news from Contentful:", error);
+    }
   }
   return MOCK_NEWS;
 }
 
 export async function getNewsArticle(slug: string): Promise<NewsArticle | null> {
   if (await isContentfulConfigured()) {
-    // Contentful query by slug
+    try {
+      const entries = await contentfulClient.getEntries<any>({
+        content_type: "newsArticle",
+        "fields.slug": slug,
+        limit: 1,
+      });
+
+      if (entries.items.length === 0) return null;
+
+      const item = entries.items[0];
+      return {
+        id: item.sys.id,
+        slug: item.fields.slug ?? "",
+        title: item.fields.title ?? "",
+        excerpt: item.fields.excerpt ?? "",
+        body: item.fields.body ? documentToHtmlString(item.fields.body) : "",
+        category: item.fields.category ?? "",
+        coverImage: item.fields.coverImage?.fields?.file?.url
+          ? `https:${item.fields.coverImage.fields.file.url}`
+          : "",
+        author: item.fields.author ?? "",
+        authorAvatar: item.fields.authorAvatar?.fields?.file?.url
+          ? `https:${item.fields.authorAvatar.fields.file.url}`
+          : "",
+        publishedAt: item.fields.publishedAt ?? "",
+        tags: Array.isArray(item.fields.tags) ? item.fields.tags : [],
+      };
+    } catch (error) {
+      console.error("Error fetching news article from Contentful:", error);
+    }
   }
   return MOCK_NEWS.find((a) => a.slug === slug) ?? null;
 }
