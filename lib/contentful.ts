@@ -10,6 +10,7 @@
  * so the project builds and runs without a Contentful account.
  */
 
+import { createClient } from "contentful";
 import type { NewsArticle } from "@/types/news";
 import type { Faculty } from "@/types/faculty";
 import type { UniversityEvent } from "@/types/event";
@@ -17,6 +18,15 @@ import type { Leader } from "@/types/leader";
 import type { Course, Department } from "@/types/academic";
 import type { GalleryImage } from "@/types/gallery";
 import type { StaffMember } from "@/types/staff";
+
+// ---------------------------------------------------------------------------
+// Contentful Client
+// ---------------------------------------------------------------------------
+
+const contentfulClient = createClient({
+  space: process.env.CONTENTFUL_SPACE_ID!,
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
+});
 
 // ---------------------------------------------------------------------------
 // Mock data (used when CONTENTFUL_SPACE_ID is not set)
@@ -507,18 +517,100 @@ export async function getAllNewsSlugs(): Promise<string[]> {
 
 export async function getFeaturedFaculties(): Promise<Faculty[]> {
   if (await isContentfulConfigured()) {
-    // Contentful query
+    try {
+      const entries = await contentfulClient.getEntries<any>({
+        content_type: "faculty",
+        limit: 100,
+      });
+
+      return entries.items.map((item: any) => ({
+        id: item.sys.id,
+        slug: item.fields.slug ?? "",
+        name: item.fields.name ?? "",
+        shortName: item.fields.shortName ?? "",
+        description: item.fields.description ?? "",
+        coverImage: item.fields.coverImage?.fields?.file?.url
+          ? `https:${item.fields.coverImage.fields.file.url}`
+          : "",
+        icon: item.fields.icon ?? "",
+        programCount: item.fields.programCount ?? 0,
+        studentCount: item.fields.studentCount ?? 0,
+        dean: item.fields.dean ?? "",
+        featuredPrograms: Array.isArray(item.fields.featuredPrograms)
+          ? item.fields.featuredPrograms
+          : [],
+      }));
+    } catch (error) {
+      console.error("Error fetching faculties from Contentful:", error);
+    }
   }
   return MOCK_FACULTIES;
 }
 
 export async function getAllFaculties(): Promise<Faculty[]> {
+  if (await isContentfulConfigured()) {
+    try {
+      const entries = await contentfulClient.getEntries<any>({
+        content_type: "faculty",
+        limit: 100,
+      });
+
+      return entries.items.map((item: any) => ({
+        id: item.sys.id,
+        slug: item.fields.slug ?? "",
+        name: item.fields.name ?? "",
+        shortName: item.fields.shortName ?? "",
+        description: item.fields.description ?? "",
+        coverImage: item.fields.coverImage?.fields?.file?.url
+          ? `https:${item.fields.coverImage.fields.file.url}`
+          : "",
+        icon: item.fields.icon ?? "",
+        programCount: item.fields.programCount ?? 0,
+        studentCount: item.fields.studentCount ?? 0,
+        dean: item.fields.dean ?? "",
+        featuredPrograms: Array.isArray(item.fields.featuredPrograms)
+          ? item.fields.featuredPrograms
+          : [],
+      }));
+    } catch (error) {
+      console.error("Error fetching faculties from Contentful:", error);
+    }
+  }
   return MOCK_FACULTIES;
 }
 
 export async function getFaculty(slug: string): Promise<Faculty | null> {
   if (await isContentfulConfigured()) {
-    // Contentful query
+    try {
+      const entries = await contentfulClient.getEntries<any>({
+        content_type: "faculty",
+        "fields.slug": slug,
+        limit: 1,
+      });
+
+      if (entries.items.length === 0) return null;
+
+      const item = entries.items[0];
+      return {
+        id: item.sys.id,
+        slug: item.fields.slug ?? "",
+        name: item.fields.name ?? "",
+        shortName: item.fields.shortName ?? "",
+        description: item.fields.description ?? "",
+        coverImage: item.fields.coverImage?.fields?.file?.url
+          ? `https:${item.fields.coverImage.fields.file.url}`
+          : "",
+        icon: item.fields.icon ?? "",
+        programCount: item.fields.programCount ?? 0,
+        studentCount: item.fields.studentCount ?? 0,
+        dean: item.fields.dean ?? "",
+        featuredPrograms: Array.isArray(item.fields.featuredPrograms)
+          ? item.fields.featuredPrograms
+          : [],
+      };
+    } catch (error) {
+      console.error("Error fetching faculty from Contentful:", error);
+    }
   }
   return MOCK_FACULTIES.find((f) => f.slug === slug) ?? null;
 }
