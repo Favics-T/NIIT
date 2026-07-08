@@ -1,4 +1,3 @@
-// import { contentfulClient } from '@/lib/contenntful';
 import { contentfulClient } from '@/lib/contentful';
 import type { Faculty } from '@/types/faculty';
 

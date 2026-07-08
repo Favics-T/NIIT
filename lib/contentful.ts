@@ -1,15 +1,3 @@
-/**
- * Contentful CMS data layer.
- *
- * To connect a real Contentful space set these env vars:
- *   CONTENTFUL_SPACE_ID
- *   CONTENTFUL_ACCESS_TOKEN
- *   CONTENTFUL_PREVIEW_TOKEN  (optional, for draft previews)
- *
- * When those variables are absent the module falls back to local mock data
- * so the project builds and runs without a Contentful account.
- */
-
 import { createClient } from "contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import type { NewsArticle } from "@/types/news";
@@ -26,9 +14,6 @@ export const contentfulClient = createClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
 });
 
-// ---------------------------------------------------------------------------
-// Mock data (used when CONTENTFUL_SPACE_ID is not set)
-// ---------------------------------------------------------------------------
 
 const MOCK_NEWS: NewsArticle[] = [
   {
@@ -474,10 +459,7 @@ const MOCK_GALLERY: GalleryImage[] = [
   },
 ];
 
-// ---------------------------------------------------------------------------
-// Data fetching functions (Contentful or mock fallback)
-// ---------------------------------------------------------------------------
-
+// this checks if content is configured 
 async function isContentfulConfigured(): Promise<boolean> {
   return !!(
     process.env.CONTENTFUL_SPACE_ID && process.env.CONTENTFUL_ACCESS_TOKEN
@@ -804,6 +786,40 @@ export async function getAllStaff(filters?: {
   faculty?: string;
   department?: string;
 }): Promise<StaffMember[]> {
+  if (await isContentfulConfigured()) {
+    try {
+      const query: any = {
+        content_type: "staff",
+        limit: 1000,
+      };
+
+      // Filter server-side when a filter is given — avoids fetching
+      // and discarding entries we don't need.
+      if (filters?.faculty) query["fields.facultySlug"] = filters.faculty;
+      if (filters?.department) query["fields.departmentSlug"] = filters.department;
+
+      const entries = await contentfulClient.getEntries<any>(query);
+
+      return entries.items.map((item: any) => ({
+        id: item.sys.id,
+        name: (item.fields.name as string) ?? "",
+        title: (item.fields.title as string) ?? "",
+        facultySlug: (item.fields.facultySlug as string) ?? "",
+        departmentSlug: (item.fields.departmentSlug as string) ?? "",
+        email: (item.fields.email as string) ?? "",
+        expertise: Array.isArray(item.fields.expertise)
+          ? (item.fields.expertise as string[])
+          : [],
+        profileImage: (item.fields.profileImage as any)?.fields?.file?.url
+          ? `https:${(item.fields.profileImage as any).fields.file.url}`
+          : "/images/staff-placeholder.jpg",
+      }));
+    } catch (error) {
+      console.error("Error fetching staff from Contentful:", error);
+    }
+  }
+
+  // Fallback: filter mock data in JS, same behavior as before
   return MOCK_STAFF.filter((staff) => {
     if (filters?.faculty && staff.facultySlug !== filters.faculty) return false;
     if (filters?.department && staff.departmentSlug !== filters.department) return false;
@@ -823,3 +839,6 @@ export async function getVC(): Promise<Leader | null> {
   const leaders = await getAllLeaders();
   return leaders.find((l) => l.role === "vc") ?? null;
 }
+
+const staff = await getAllStaff();
+console.log(JSON.stringify(staff, null, 2));

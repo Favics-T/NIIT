@@ -13,6 +13,7 @@ import {
 } from "@/lib/contentful";
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
+import { getAllStaff } from '@/lib/contentful'
 
 export const revalidate = 3600;
 
@@ -28,6 +29,9 @@ export default async function HomePage() {
     getLatestNews(3),
     getUpcomingEvents(3),
   ]);
+
+  const staff = await getAllStaff();
+  console.log(JSON.stringify(staff, null, 2));
 
   return (
     <>

@@ -7,7 +7,7 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://niit.edu.ng
 export const ESTABLISHED_YEAR = 1980;
 
 export const CONTACT = {
-  address: "234 Palmer Ave, New York, NY",
+  address: "234 Dline, Port Hrcourt, Nigeria",
   phone: "+1 (234) 456-1234",
   email: "hello@niit.edu.ng",
   hours: "Mon–Fri 8:00–18:00",

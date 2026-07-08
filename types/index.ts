@@ -1,7 +1,3 @@
-// ============================================================
-// types/index.ts
-// Shared TypeScript types for all content models
-// ============================================================
 
 export interface NewsArticle {
   id: string

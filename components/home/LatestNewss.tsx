@@ -1,4 +1,3 @@
-// src/components/home/LatestNews.tsx
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
 import type { NewsArticle } from "@/types/news";

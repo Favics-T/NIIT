@@ -91,10 +91,12 @@ function getFacultyImage(coverImage: string, index: number) {
 
 export default async function AcademicsPage() {
   const faculties = await getAllFaculties();
+
   const totalPrograms = faculties.reduce(
     (total, faculty) => total + faculty.programCount,
     0
   );
+  
   const totalStudents = faculties.reduce(
     (total, faculty) => total + faculty.studentCount,
     0
@@ -188,7 +190,7 @@ export default async function AcademicsPage() {
                   key={faculty.id}
                   className="group overflow-hidden border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <div className="relative aspect-[4/3] bg-gray-100">
+                  <div className="relative aspect-4/3 bg-gray-100">
                     <Image
                       src={getFacultyImage(faculty.coverImage, index)}
                       alt={faculty.name}
@@ -233,7 +235,7 @@ export default async function AcademicsPage() {
                           <li key={program} className="flex items-start gap-2">
                             <ShieldCheck
                               size={16}
-                              className="mt-0.5 flex-shrink-0 text-red-700"
+                              className="mt-0.5 shrink-0 text-red-700"
                             />
                             {program}
                           </li>
