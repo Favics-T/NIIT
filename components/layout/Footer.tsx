@@ -1,5 +1,4 @@
 import { CONTACT, SITE_NAME, SITE_SHORT_NAME, SOCIAL } from "@/constants/site";
-import { NAV_LINKS } from "@/constants/nav";
 import {
   GraduationCap,
   MapPin,
@@ -120,7 +119,7 @@ export function Footer() {
             </h3>
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-sm text-gray-400">
-                <MapPin size={16} className="mt-0.5 flex-shrink-0 text-red-500" />
+                <MapPin size={16} className="mt-0.5 shrink-0 text-red-500" />
                 {CONTACT.address}
               </li>
               <li>
@@ -128,7 +127,7 @@ export function Footer() {
                   href={`tel:${CONTACT.phone}`}
                   className="flex items-center gap-3 text-sm text-gray-400 transition-colors hover:text-red-400"
                 >
-                  <Phone size={16} className="flex-shrink-0 text-red-500" />
+                  <Phone size={16} className="shrink-0 text-red-500" />
                   {CONTACT.phone}
                 </a>
               </li>
@@ -137,7 +136,7 @@ export function Footer() {
                   href={`mailto:${CONTACT.email}`}
                   className="flex items-center gap-3 text-sm text-gray-400 transition-colors hover:text-red-400"
                 >
-                  <Mail size={16} className="flex-shrink-0 text-red-500" />
+                  <Mail size={16} className="shrink-0 text-red-500" />
                   {CONTACT.email}
                 </a>
               </li>

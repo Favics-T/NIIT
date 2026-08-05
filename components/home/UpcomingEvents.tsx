@@ -1,4 +1,3 @@
-// src/components/home/UpcomingEvents.tsx
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
 import type { UniversityEvent } from "@/types/event";
@@ -30,8 +29,13 @@ export function UpcomingEvents({ events }: UpcomingEventsProps) {
         </div>
 
         {/* Event list */}
-        <div className="space-y-4">
-          {events.map((event) => {
+        {events.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center text-sm text-gray-600">
+            Upcoming events will appear here once Contentful is available.
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {events.map((event) => {
             const { day, month } = formatShortDate(event.startDate);
             return (
               <Link
@@ -40,7 +44,7 @@ export function UpcomingEvents({ events }: UpcomingEventsProps) {
                 className="group flex items-start gap-5 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-x-1 hover:border-red-100 hover:shadow-lg"
               >
                 {/* Date badge */}
-                <div className="flex w-14 flex-shrink-0 flex-col items-center justify-center rounded-xl bg-red-700 py-3 text-white shadow-md shadow-red-700/20">
+                <div className="flex w-14 shrink-0 flex-col items-center justify-center rounded-xl bg-red-700 py-3 text-white shadow-md shadow-red-700/20">
                   <span className="text-xl font-extrabold leading-none">{day}</span>
                   <span className="text-[10px] font-semibold uppercase tracking-wider text-red-200 mt-0.5">
                     {month}
@@ -73,12 +77,13 @@ export function UpcomingEvents({ events }: UpcomingEventsProps) {
 
                 <ArrowRight
                   size={18}
-                  className="mt-1 flex-shrink-0 text-gray-300 transition-all group-hover:translate-x-1 group-hover:text-red-600"
+                  className="mt-1 shrink-0 text-gray-300 transition-all group-hover:translate-x-1 group-hover:text-red-600"
                 />
               </Link>
             );
-          })}
-        </div>
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

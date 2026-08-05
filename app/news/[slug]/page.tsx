@@ -7,7 +7,6 @@ import { getAllNewsSlugs, getNewsArticle } from "@/lib/contentful";
 type Props = { params: Promise<{ slug: string }> };
 
 export const revalidate = 3600;
-export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return (await getAllNewsSlugs()).map((slug) => ({ slug }));
@@ -50,10 +49,17 @@ export default async function NewsArticlePage({ params }: Props) {
         </div>
         <div className="prose max-w-3xl">
           <p>{article.excerpt}</p>
-          <div dangerouslySetInnerHTML={{ __html: article.body }} />
+          <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.body) }} />
         </div>
       </div>
     </article>
   );
 }
 
+function sanitizeHtml(html: string) {
+  return html
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
+    .replace(/\son\w+="[^"]*"/gi, "")
+    .replace(/\son\w+='[^']*'/gi, "")
+    .replace(/javascript:/gi, "");
+}

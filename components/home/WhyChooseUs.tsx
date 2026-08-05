@@ -1,4 +1,4 @@
-// src/components/home/WhyChooseUs.tsx
+import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { WHY_CHOOSE_US } from "@/constants/steps";
 import { Briefcase, Building2, Users, FlaskConical } from "lucide-react";
@@ -10,8 +10,7 @@ export function WhyChooseUs() {
     <section className="bg-gray-50 py-20 lg:py-28">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left: heading + image */}
-          <div>
+                 <div>
             <SectionHeading
               eyebrow="Why Us"
               title={
@@ -23,19 +22,23 @@ export function WhyChooseUs() {
               description="We combine academic rigour with practical experience to produce graduates who are sought-after worldwide."
             />
 
-            {/* Image placeholder */}
+           
             <div className="mt-8 grid grid-cols-2 gap-4">
               <div className="relative overflow-hidden rounded-xl">
-                <img
-                  src="/images/why-us-1.jpg"
+                <Image
+                  src="/images/NIIT.webp"
                   alt="Students collaborating"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="h-48 w-full object-cover"
                 />
               </div>
               <div className="relative overflow-hidden rounded-xl">
-                <img
-                  src="/images/why-us-2.jpg"
+                <Image
+                  src="/images/Class1.png"
                   alt="Campus innovation hub"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="h-48 w-full object-cover"
                 />
               </div>

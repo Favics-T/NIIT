@@ -13,7 +13,7 @@ export function buildMetadata({
   title,
   description = SITE_DESCRIPTION,
   path = "/",
-  image = "/images/og-image.jpg",
+  image = "/images/NIIT.webp",
 }: PageMetaOptions): Metadata {
   const url = `${SITE_URL}${path}`;
 

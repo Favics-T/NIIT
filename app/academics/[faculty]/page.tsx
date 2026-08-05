@@ -24,8 +24,6 @@ type FacultyPageProps = {
   }>;
 };
 
-export const dynamicParams = false;
-
 const fallbackImages = ["/images/Class1.png", "/images/Class2.png", "/images/NIIT.webp"];
 
 const iconMap = {

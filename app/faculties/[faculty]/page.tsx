@@ -7,8 +7,6 @@ import { getAllFacultySlugs, getDepartmentsByFaculty, getFaculty } from "@/lib/c
 
 type Props = { params: Promise<{ faculty: string }> };
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   return (await getAllFacultySlugs()).map((faculty) => ({ faculty }));
 }
@@ -64,4 +62,3 @@ export default async function FacultyPage({ params }: Props) {
     </div>
   );
 }
-

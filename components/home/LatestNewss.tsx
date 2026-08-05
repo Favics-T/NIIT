@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
 import type { NewsArticle } from "@/types/news";
@@ -29,8 +30,13 @@ export function LatestNews({ articles }: LatestNewsProps) {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {articles.map((article) => (
+        {articles.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-gray-200 bg-white p-8 text-center text-sm text-gray-600">
+            News articles are temporarily unavailable while Contentful reconnects.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {articles.map((article) => (
             <Link
               key={article.id}
               href={`/news/${article.slug}`}
@@ -38,9 +44,11 @@ export function LatestNews({ articles }: LatestNewsProps) {
             >
               {/* Cover */}
               <div className="relative h-48 overflow-hidden">
-                <img
+                <Image
                   src={article.coverImage}
                   alt={article.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute left-4 top-4">
@@ -70,8 +78,9 @@ export function LatestNews({ articles }: LatestNewsProps) {
                 </div>
               </div>
             </Link>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -8,4 +8,3 @@ export interface StaffMember {
   expertise: string[];
   profileImage: string;
 }
-

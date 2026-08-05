@@ -21,7 +21,7 @@ export default function AdmissionsPage() {
     <div className="bg-white">
       <section className="bg-[#111827] py-20 text-white">
         <div className="container mx-auto px-4 lg:px-8">
-          <SectionHeading eyebrow="Admissions" title="Start your NIIT application." description="Admissions information is static because core requirements and steps are stable public content." light />
+          <SectionHeading eyebrow="Admissions" title="Start your NIIT application." description="Admissions is on for new students." light />
         </div>
       </section>
       <section className="container mx-auto grid gap-10 px-4 py-20 lg:grid-cols-[1fr_0.8fr] lg:px-8">
@@ -30,7 +30,7 @@ export default function AdmissionsPage() {
           <div className="mt-6 space-y-4">
             {steps.map((step, index) => (
               <div key={step} className="flex gap-4 border border-gray-200 p-5">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center bg-red-700 text-sm font-bold text-white">{index + 1}</div>
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center bg-red-700 text-sm font-bold text-white">{index + 1}</div>
                 <p className="font-semibold text-gray-700">{step}</p>
               </div>
             ))}

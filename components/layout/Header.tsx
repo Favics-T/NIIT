@@ -1,7 +1,7 @@
 "use client";
 import { NAV_LINKS } from "@/constants/nav";
-import { CONTACT, SITE_SHORT_NAME } from "@/constants/site";
-import { Menu, MapPin, Phone, Mail, Clock, ChevronDown, GraduationCap } from "lucide-react";
+import { SITE_SHORT_NAME } from "@/constants/site";
+import { Menu, ChevronDown, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MobileMenu } from "./MobileMenu";
@@ -18,32 +18,6 @@ export function Header() {
 
   return (
     <>
-      {/* Top info bar */}
-      {/* <div className="hidden bg-[#1A1A2E] py-2 text-xs text-gray-300 md:block">
-        <div className="container mx-auto flex items-center justify-between px-4 lg:px-8">
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5">
-              <MapPin size={12} className="text-red-500" />
-              {CONTACT.address}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Clock size={12} className="text-red-500" />
-              {CONTACT.hours}
-            </span>
-          </div>
-          <div className="flex items-center gap-6">
-            <a href={`tel:${CONTACT.phone}`} className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <Phone size={12} className="text-red-500" />
-              {CONTACT.phone}
-            </a>
-            <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <Mail size={12} className="text-red-500" />
-              {CONTACT.email}
-            </a>
-          </div>
-        </div>
-      </div> */}
-
       {/* Main nav */}
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${

@@ -1,4 +1,4 @@
-// Root layout — SSR (rendered on every request for global shell)
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";

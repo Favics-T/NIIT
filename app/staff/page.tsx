@@ -26,8 +26,8 @@ export default async function StaffPage({ searchParams }: Props) {
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading
             eyebrow="Staff"
-            title="Lecturer directory with server-side filtering."
-            description="The staff directory uses SSR so filters and staff records can reflect fresh CMS changes on every request."
+            title="Staffs and Senior Stffs of NIIT."
+            description="            You can search for staff here, our staff are highly educated and are excellent."
             light
           />
         </div>

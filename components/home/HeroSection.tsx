@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { HERO_STATS } from "@/constants/stats";
 import { GraduationCap, Award, Trophy } from "lucide-react";
@@ -10,18 +11,20 @@ const ICON_MAP = {
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] overflow-hidden bg[#0D0D1A]">
+    <section className="relative min-h-[90vh] overflow-hidden bg-[#0D0D1A]">
       {/* Background image placeholder */}
       <div className="absolute inset-0">
-        <img
+        <Image
           src="/images/NIIT.webp"
           alt="NIIT students and campus"
+          fill
+          priority
+          sizes="100vw"
           className="h-full w-full object-cover object-center"
-          // Replace src with your actual hero image
         />
         {/* Dark gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0D0D1A]/90 via-[#0D0D1A]/70 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D1A]/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-[#0D0D1A]/90 via-[#0D0D1A]/70 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#0D0D1A]/60 via-transparent to-transparent" />
       </div>
 
       {/* Red accent bar */}
@@ -99,7 +102,7 @@ export function HeroSection() {
                   key={i}
                   className="flex items-start gap-4 px-6 py-5"
                 >
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/20">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/20">
                     <Icon size={20} className="text-white" />
                   </div>
                   <div>

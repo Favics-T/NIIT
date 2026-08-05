@@ -6,8 +6,6 @@ import { getAllCourseSlugs, getCourse } from "@/lib/contentful";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   return (await getAllCourseSlugs()).map((slug) => ({ slug }));
 }
@@ -58,4 +56,3 @@ export default async function CoursePage({ params }: Props) {
     </div>
   );
 }
-

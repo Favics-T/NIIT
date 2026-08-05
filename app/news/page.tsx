@@ -22,7 +22,7 @@ export default async function NewsPage() {
           <SectionHeading
             eyebrow="News"
             title="Latest campus updates."
-            description="The news listing uses ISR so editors can publish updates without forcing every request to render from scratch."
+            description="Follow up Latest News"
             light
           />
         </div>
@@ -30,7 +30,7 @@ export default async function NewsPage() {
       <section className="container mx-auto grid gap-6 px-4 py-20 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
         {articles.map((article) => (
           <article key={article.id} className="overflow-hidden border border-gray-200 bg-white shadow-sm">
-            <div className="relative aspect-[16/10] bg-gray-100">
+            <div className="relative aspect-16/10 bg-gray-100">
               <Image
                 src={article.coverImage.includes("placeholder") ? "/images/NIIT.webp" : article.coverImage}
                 alt={article.title}

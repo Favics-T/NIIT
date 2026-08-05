@@ -32,12 +32,12 @@ export default function About() {
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-12'>
           {/* History */}
           <div className='col-span-2'>
-            <h2 className='text-4xl font-bold mb-4'>About Baobab University</h2>
+            <h2 className='text-4xl font-bold mb-4'>About NIIT University</h2>
             <p className='text-gray-700 mb-6'>
-              Our story began in 1981 with a small group of educators who believed in
-              accessible, high-quality education. Since then, Baobab University has
-              grown into a vibrant academic community, combining strong research,
-              industry partnerships, and student-centered learning.
+              Our story began with a commitment to accessible, high-quality
+              education. NIIT has grown into a vibrant academic community,
+              combining strong research, industry partnerships, and
+              student-centered learning.
             </p>
 
             <div className='mb-8'>

@@ -1,4 +1,4 @@
-
+import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
 import type { Faculty } from "@/types/faculty";
@@ -29,8 +29,13 @@ export function FeaturedFaculties({ faculties }: FeaturedFacultiesProps) {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {faculties.map((faculty) => (
+        {faculties.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 p-8 text-center text-sm text-gray-600">
+            Faculty information is temporarily unavailable while we reconnect to Contentful.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {faculties.map((faculty) => (
             <Link
               key={faculty.id}
               href={`/academics/${faculty.slug}`}
@@ -38,9 +43,11 @@ export function FeaturedFaculties({ faculties }: FeaturedFacultiesProps) {
             >
               {/* Image */}
               <div className="relative h-44 overflow-hidden">
-                <img
+                <Image
                   src={faculty.coverImage}
                   alt={faculty.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -71,8 +78,9 @@ export function FeaturedFaculties({ faculties }: FeaturedFacultiesProps) {
                 </div>
               </div>
             </Link>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

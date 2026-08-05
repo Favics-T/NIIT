@@ -63,8 +63,7 @@ export function Button(props: Props) {
     );
   }
 
-  const { href: _href, variant: _v, size: _s, className: _c, ...buttonRest } =
-    props as BaseButtonProps & { href?: undefined };
+  const buttonRest = props as BaseButtonProps & { href?: undefined };
 
   return (
     <button className={baseClasses} {...buttonRest}>

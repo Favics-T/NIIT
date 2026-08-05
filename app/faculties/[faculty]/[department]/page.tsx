@@ -12,8 +12,6 @@ import {
 
 type Props = { params: Promise<{ faculty: string; department: string }> };
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   return getAllDepartmentParams();
 }

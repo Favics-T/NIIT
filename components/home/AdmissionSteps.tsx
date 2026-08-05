@@ -1,4 +1,3 @@
-// src/components/home/AdmissionSteps.tsx
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StepCard } from "@/components/ui/StepCard";
 import { Button } from "@/components/ui/Button";

@@ -28,7 +28,7 @@ export default async function FacultiesPage() {
           <SectionHeading
             eyebrow="Faculties"
             title="Academic homes for every programme pathway."
-            description="Faculty content is statically generated because the structure changes infrequently and should load quickly for prospective students."
+            description="Faculties we have now"
             light
           />
         </div>

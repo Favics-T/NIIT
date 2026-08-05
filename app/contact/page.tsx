@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="bg-white">
-      <section className="bg-[#111827] py-20 text-white">
+      {/* <section className="bg-[#111827] py-20 text-white">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading eyebrow="Contact" title="Send an enquiry to the right team." description="The form uses a client component with React Hook Form and Zod validation for immediate UX feedback." light />
         </div>
-      </section>
+      </section> */}
       <section className="container mx-auto grid gap-12 px-4 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
         <aside className="space-y-5">
           {[

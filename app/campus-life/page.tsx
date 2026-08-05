@@ -18,7 +18,7 @@ export default function CampusLifePage() {
         </div>
       </section>
       <section className="container mx-auto grid gap-10 px-4 py-20 lg:grid-cols-2 lg:px-8">
-        <div className="relative aspect-[4/3] bg-gray-100">
+        <div className="relative aspect-4/3 bg-gray-100">
           <Image src="/images/NIIT.webp" alt="NIIT campus life" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
         </div>
         <div>

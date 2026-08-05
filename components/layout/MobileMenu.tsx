@@ -1,5 +1,5 @@
 "use client";
-// src/components/layout/MobileMenu.tsx
+
 import { NAV_LINKS } from "@/constants/nav";
 import { SITE_SHORT_NAME } from "@/constants/site";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
@@ -17,7 +17,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex">
+    <div className="fixed inset-0 z-100 flex">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"

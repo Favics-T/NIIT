@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ABOUT_STATS } from "@/constants/stats";
@@ -20,10 +21,10 @@ export function AboutSnippet() {
                   Welcome to{" "}
                   <span className="text-red-700">NIIT,</span>
                   <br />
-                  Creator of Underrated Graduated
+                  Building Skills, Confidence, and Opportunity
                 </>
               }
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+              description="NIIT prepares students with practical skills, strong values, and the confidence to grow in a changing world."
             />
 
             {/* Established badge */}
@@ -46,9 +47,11 @@ export function AboutSnippet() {
           <div className="relative">
             {/* Building image placeholder */}
             <div className="relative overflow-hidden rounded-2xl">
-              <img
+              <Image
                 src="/images/NIIT.webp"
                 alt="NIIT campus building"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="h-72 w-full object-cover lg:h-96"
               />
               {/* Red decorative bar */}
